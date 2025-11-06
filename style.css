@@ -1,0 +1,184 @@
+/* Warna UNINDRA: Biru Tua & Kuning Emas */
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Inter",Arial}
+body{background:#f6f8fb;color:#111;line-height:1.45}
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+aside{background:#002147;color:#fff;padding:20px;display:flex;flex-direction:column;gap:18px}
+.brand{display:flex;gap:12px;align-items:center}
+.brand img{width:48px;height:48px;object-fit:cover;border-radius:8px;background:#fff}
+.brand h1{font-size:16px;margin-bottom:4px;color:#FFD700}
+.meta{font-size:12px;opacity:.9}
+.footer-meta{margin-top:auto;font-size:12px;opacity:.85}
+nav{display:flex;flex-direction:column;gap:6px}
+nav a{display:block;padding:10px 12px;border-radius:6px;color:rgba(255,255,255,0.9);text-decoration:none}
+nav a.active,nav a:hover{background:#FFD700;color:#002147;font-weight:600}
+
+main{padding:20px}
+.card{background:white;border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(16,24,40,0.06);margin-bottom:16px}
+.hidden{display:none}
+.collapsible{cursor:pointer;background:#002147;color:#FFD700;padding:10px;border-radius:8px}
+.collapsible:hover{opacity:0.9}
+.content{margin-top:10px;display:none}
+.content.active{display:block;animation:fade 0.3s}
+@keyframes fade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+
+button{padding:8px 12px;border-radius:8px;border:0;background:#002147;color:#FFD700;cursor:pointer}
+button:hover{opacity:.9}
+button.danger{background:#b91c1c;color:#fff}
+
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{padding:8px;border:1px solid #e6e9ef;text-align:left}
+thead th{background:#f1f5f9}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.two-col{display:flex;gap:14px}
+.form-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-items:end}
+.form-row input,.form-row select{padding:8px;border:1px solid #e6e9ef;border-radius:6px}
+
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:16px}
+.member{background:#f9fafb;border-radius:10px;text-align:center;padding:12px;box-shadow:0 4px 10px rgba(0,0,0,0.06)}
+.member img{width:100px;height:100px;object-fit:cover;border-radius:50%;border:2px solid #FFD700;margin-bottom:8px}
+.member h4{color:#002147}
+.member p{font-size:13px;color:#555}
+footer{text-align:center;padding:10px;font-size:13px;color:#555}
+
+@media(max-width:880px){
+  .app{grid-template-columns:1fr}
+  aside{flex-direction:row;overflow:auto}
+  .two-col{flex-direction:column}
+  .form-row{grid-template-columns:1fr}
+}
+
+.form-login {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+  max-width:260px;
+}
+
+
+.form-login input {
+  padding:8px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+/* Atur form Pinjam Buku agar vertikal */
+#perpustakaan .form-row {
+  display: flex;
+  flex-direction: column;   /* ubah arah ke vertikal */
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 280px;         /* supaya tidak melebar */
+}
+
+#perpustakaan .form-row label {
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+#perpustakaan .form-row select,
+#perpustakaan .form-row input,
+#perpustakaan .form-row button {
+  width: 100%;
+}
+
+/* Atur form Pinjam Buku agar vertikal */
+#perpustakaan .form-row {
+  display: flex;
+  flex-direction: column;   /* ubah arah ke vertikal */
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 280px;         /* supaya tidak melebar */
+}
+
+#perpustakaan .form-row label {
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+#perpustakaan .form-row select,
+#perpustakaan .form-row input,
+#perpustakaan .form-row button {
+  width: 100%;
+}
+
+
+/* === KANTIN SEKOLAH === */
+
+/* Tata letak dua kolom (Menu di kiri, Pesan di kanan) */
+#kantin .two-col {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* Kolom kiri dan kanan */
+#kantin .two-col > div {
+  flex: 1;
+  min-width: 280px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Form Tambah Item Menu */
+#kantin .form-row {
+  display: flex;
+  flex-direction: column; /* jadikan vertikal */
+  gap: 8px;
+  margin-top: 8px;
+}
+
+#kantin input, 
+#kantin select {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  width: 100%;
+}
+
+#kantin label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #0b3b74;
+}
+
+#kantin button {
+  background-color: #0b3b74;
+  color: #ffd200;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#kantin button:hover {
+  background-color: #0a356a;
+}
+
+/* Daftar menu */
+#menuList {
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+/* Daftar pesanan */
+#orderList {
+  background: #f9fafb;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  margin-top: 8px;
+  min-height: 40px;
+}
+
+/* Responsif untuk HP */
+@media (max-width: 768px) {
+  #kantin .two-col {
+    flex-direction: column;
+  }
+}

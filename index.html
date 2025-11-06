@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portal Pendidikan — Perpustakaan & Kantin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand">
+        <img src="foto7.jfif" alt="Logo">
+        <div>
+          <h1>Portal Pendidikan</h1>
+          <div class="meta">Nama: <strong id="npm">admin</strong></div>
+          <div class="meta">Npm: <strong id="owner">ADMIN</strong></div>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#" data-view="dashboard" class="active">Dashboard</a>
+        <a href="#" data-view="peserta">Data Peserta</a>
+        <a href="#" data-view="perpustakaan">Perpustakaan</a>
+        <a href="#" data-view="kantin">Kantin</a>
+        <a href="#" data-view="absensi">Absensi</a>
+        <a href="#" data-view="settings">Pengaturan</a>
+        <a href="#" data-view="about">Tentang Kami</a>
+      </nav>
+
+      <div style="margin-top:auto;font-size:12px;opacity:.85">Versi: 1.0<br>Kampus: Universitas Indraprasta</div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    
+    </aside>
+    
+
+
+    <main>
+      <!-- LOGIN -->
+<section id="loginPage" class="card view">
+  <h2>Login Administrator</h2>
+  <div class="content active">
+    <p class="small">Masukkan username dan password untuk mengakses sistem.</p>
+    <form id="loginForm" onsubmit="return false;" class="form-login">
+      <div>
+        <label>Username</label>
+        <input id="loginUser" type="text" placeholder="Username">
+      </div>
+      <div>
+        <label>Password</label>
+        <input id="loginPass" type="password" placeholder="Password">
+      </div>
+      <div>
+        <button onclick="login()">Masuk</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="card view">
+        <h2>Dashboard</h2>
+        <p class="small">Ringkasan singkat sistem: jumlah peserta, buku tersedia, pesanan kantin hari ini, dan peminjaman terakhir.</p>
+        <div class="grid-4">
+          <div class="stat card small">
+            <h3 id="statPeserta">Peserta: 0</h3>
+            <p>Jumlah peserta terdaftar</p>
+          </div>
+          <div class="stat card small">
+            <h3 id="statBuku">Buku: 0</h3>
+            <p>Judul buku tersedia</p>
+          </div>
+          <div class="stat card small">
+            <h3 id="statPinjam">Peminjaman: 0</h3>
+            <p>Riwayat peminjaman</p>
+          </div>
+          <div class="stat card small">
+            <h3 id="statPesanan">Pesanan: 0</h3>
+            <p>Pesanan kantin hari ini</p>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <h3>Peminjaman Terakhir</h3>
+          <div id="lastBorrow">Belum ada peminjaman.</div>
+        </div>
+      </section>
+
+      <!-- PESERTA -->
+      <section id="peserta" class="card view hidden">
+        <h2>Data Peserta Perpustakaan</h2>
+        <p class="small">Tambah peserta (siswa/staff/guru) yang boleh gunakan layanan perpustakaan & kantin.</p>
+
+        <form id="pesertaForm" class="form-row" onsubmit="return false;">
+          <div>
+            <label>Nama Lengkap</label>
+            <input id="p_nama" type="text" placeholder="Nama lengkap" required>
+          </div>
+          <div>
+            <label>NIS / ID</label>
+            <input id="p_id" type="text" placeholder="NIS atau ID">
+          </div>
+          <div>
+            <label>Peran</label>
+            <select id="p_role">
+              <option value="siswa">Siswa</option>
+              <option value="guru">Guru</option>
+              <option value="staff">Staff</option>
+            </select>
+          </div>
+          <div style="align-self:end">
+            <button type="button" onclick="addPeserta()">Tambah Peserta</button>
+          </div>
+        </form>
+
+        <h3 style="margin-top:12px">Daftar Peserta</h3>
+        <table id="tablePeserta">
+          <thead>
+            <tr><th>#</th><th>Nama</th><th>ID</th><th>Peran</th><th>Aksi</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <!-- PERPUSTAKAAN -->
+      <section id="perpustakaan" class="card view hidden">
+        <h2>Perpustakaan</h2>
+        <div class="two-col">
+          <div>
+            <h3>Buku Tersedia</h3>
+            <table id="tableBuku">
+              <thead><tr><th>#</th><th>Judul</th><th>Penulis</th><th>Stok</th><th>Aksi</th></tr></thead>
+              <tbody></tbody>
+            </table>
+
+            <h4 style="margin-top:10px">Tambah Buku (admin)</h4>
+            <div class="form-row">
+              <input id="b_judul" placeholder="Judul">
+              <input id="b_penulis" placeholder="Penulis">
+              <input id="b_stok" type="number" placeholder="Stok" min="1" value="1">
+              <button onclick="addBuku()">Tambah Buku</button>
+            </div>
+          </div>
+
+          <div>
+            <h3>Pinjam Buku</h3>
+            <div class="form-row">
+              <label>Peserta:</label>
+              <select id="selectPesertaForBorrow"></select>
+
+              <label>Buku:</label>
+              <select id="selectBukuForBorrow"></select>
+
+              <label>Durasi (hari):</label>
+              <input id="durasiPinjam" type="number" min="1" value="7">
+              <button onclick="pinjamBuku()">Pinjam</button>
+            </div>
+
+            <h3 style="margin-top:12px">Riwayat Peminjaman</h3>
+            <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+              <button onclick="renderHistory()">Muat Riwayat</button>
+              <button class="danger" onclick="hapusSemuaRiwayat()">Hapus Semua Riwayat</button>
+            </div>
+            <div id="historyArea"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- KANTIN -->
+      <section id="kantin" class="card view hidden">
+        <h2>Kantin Sekolah (Pesan Makanan & Minuman)</h2>
+        <p class="small">Pesan hanya menggunakan peserta yang sudah terdaftar.</p>
+
+        <div class="two-col">
+          <div>
+            <h3>Menu</h3>
+            <div id="menuList"></div>
+            <h4 style="margin-top:8px">Tambah Item Menu (admin)</h4>
+            <div class="form-row">
+              <input id="m_nama" placeholder="Nama makanan/minuman">
+              <input id="m_harga" type="number" placeholder="Harga" min="0" value="10000">
+              <button onclick="tambahMenu()">Tambah Menu</button>
+            </div>
+          </div>
+
+          <div>
+            <h3>Pesan</h3>
+            <div class="form-row">
+              <label>Peserta:</label>
+              <select id="selectPesertaForOrder"></select>
+            </div>
+
+            <div class="form-row">
+              <label>Pilih Item:</label>
+              <select id="selectMenuForOrder"></select>
+              <label>Jumlah:</label>
+              <input id="orderQty" type="number" min="1" value="1">
+              <button onclick="buatPesanan()">Pesan</button>
+            </div>
+
+            <h3 style="margin-top:12px">Daftar Pesanan</h3>
+            <div id="orderList"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABSENSI -->
+      <section id="absensi" class="card view hidden">
+        <h2>Absensi Harian</h2>
+        <p class="small">Centang hadir / sakit untuk guru, siswa, staff hari ini.</p>
+
+        <div class="form-row">
+          <label>Pilih Peran</label>
+          <select id="filterRole" onchange="renderAttendance()">
+            <option value="all">Semua</option>
+            <option value="guru">Guru</option>
+            <option value="siswa">Siswa</option>
+            <option value="staff">Staff</option>
+          </select>
+          <button onclick="absensiHarian()">Atur Absensi Hari Ini</button>
+        </div>
+
+        <div id="attendanceArea"></div>
+
+        <div style="margin-top:12px">
+          <h4>Rekap Hari Ini (<span id="todayDate"></span>)</h4>
+          <div id="rekapArea"></div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="settings" class="card view hidden">
+        <h2>Pengaturan & Data Awal</h2>
+        <p class="small">Reset data atau muat contoh data (seed).</p>
+        <div style="display:flex;gap:8px">
+          <button onclick="seedSampleData()">Muat Contoh Data</button>
+          <button class="danger" onclick="resetAllData()">Hapus Semua Data</button>
+        </div>
+        <div style="margin-top:12px;color:#555">
+          <p>Note: Data disimpan di localStorage browser. Gunakan tombol "Muat Contoh Data" untuk mencoba fitur dengan cepat.</p>
+        </div>
+      </section>
+
+      <!-- TENTANG KAMI -->
+<section id="about" class="card view hidden">
+  <h2>Tentang Kami</h2>
+  <p class="small">Kelompok mahasiswa dalam mata kuliah <strong>Pemrograman Web Dasar</strong> — Universitas Contoh. 
+  Dosen Pengampu: <strong>Ibu Dra. Siti Rahmawati, M.Kom</strong></p>
+
+  <div class="team-grid">
+    <div class="member">
+      <img src="foto2.jfif" alt="Anggota 1">
+      <h4>M Feri Kurniawan</h4>
+      <p>NPM: 202343502365</p>
+      <p>Mata Kuliah: Pemrograman Web Dasar</p>
+    </div>
+
+    <div class="member">
+      <img src="foto6.jfif" alt="Anggota 2">
+      <h4>Nauval Aqsha Fahreza</h4>
+      <p>NPM: 202343502370</p>
+      <p>Mata Kuliah: Pemrograman Web Dasar</p>
+    </div>
+
+    <div class="member">
+      <img src="foto5.jfif" alt="Anggota 3">
+      <h4>Wahyudin</h4>
+      <p>NPM: 202343502344</p>
+      <p>Mata Kuliah: Pemrograman Web Dasar</p>
+    </div>
+
+    <div class="member">
+      <img src="foto10.jfif" alt="Anggota 4">
+      <h4>Achmad Feriza Rahmadan</h4>
+      <p>NPM: 202343502353</p>
+      <p>Mata Kuliah: Pemrograman Web Dasar</p>
+    </div>
+
+    <div class="member">
+      <img src="foto4.jfif" alt="Anggota 5">
+      <h4>Robi Pranando</h4>
+      <p>NPM: 202343502291</p>
+      <p>Mata Kuliah: Pemrograman Web Dasar</p>
+    </div>
+
+    <div class="member">
+      <img src="foto3.jfif" alt="Anggota 6">
+      <h4>Denny Irawansyah</h4>
+      <p>NPM: 202343502235</p>
+      <p>Mata Kuliah: Pemrograman Web Dasar</p>
+    </div>
+  </div>
+</section>
+
+
+      <footer>
+        &copy; 2025 — Portal Pendidikan (simpan file di folder yang sama)
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
